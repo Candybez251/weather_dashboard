@@ -1,0 +1,65 @@
+<!DOCTYPE html>
+<html lang="en" dir="ltr">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Roboto:ital,wght@0,100;0,400;0,500;0,700;0,900;1,100;1,300;1,400;1,500;1,700;1,900&display=swap"
+      rel="stylesheet"
+    />
+    <link rel="stylesheet" href="src/styles.css" />
+    <script src="https://unpkg.com/axios/dist/axios.min.js"></script>
+    <title>SheCodes Weather App</title>
+  </head>
+
+  <body>
+    <div class="weather-app">
+      <header>
+        <form id="search-form">
+          <input
+            type="search"
+            id="search-input"
+            class="search-input"
+            placeholder="Enter a City.."
+            autofocus
+            required            
+          />
+          <input type="submit" value="Search" class="search-button" />
+        </form>
+      </header>
+
+      <main>
+        <div class="weather-container">
+          <div class="current-weather">
+            <h1 id="current-city" class="current-city"></h1>
+            <div class="current-details">
+              <p id="current-date"></p>
+              <p id="current-description"></p>
+              Humidity: <span id="current-humidity" class="humidity-value"></span> <br />
+              Wind: <span id="current-wind" class="wind-value"></span>
+            </div>
+          </div>
+
+          <div class="current-temperature">
+            <span id="current-icon"></span>
+            <span id="current-temp" class="current-temperature-value"></span>
+            <span class="current-temperature-unit">°C</span>
+          </div>
+        </div>
+
+        <div id="weather-forecast" class="weather-forecast-information"></div>
+      </main>
+    </div>
+    <script src="src/index.js"></script>
+  </body>
+
+  <footer>
+    <p>
+      This project was coded by <a href="#" target="_blank">Rediet Kifle</a> and is open-sourced on
+      <a href="https://github.com/Speck249/shecodes-weather-app-2" target="_blank">GitHub</a> and hosted on
+      <a href="https://shecodes-weather-app-pr.netlify.app/" target="_blank"> Netlify</a>.
+    </p>
+  </footer>
+</html>
