@@ -13,7 +13,7 @@ function handleSubmit(event) {
 }
 
 function fetchWeatherData(query) {
-  let key = "YOUR_OPENWEATHER_API_KEY";
+  let key = "2eccbcd952a1aceae0d14b25abf53b4a";
   let url = `https://api.openweathermap.org/data/2.5/weather?q=${query}&appid=${key}&units=metric`;
   axios
     .get(url)
@@ -52,7 +52,7 @@ function updateTemperature(response) {
 }
 
 function fetchForecast(query) {
-  let key = "YOUR_OPENWEATHER_API_KEY";
+  let key = "2eccbcd952a1aceae0d14b25abf53b4a";
   let url = `https://api.openweathermap.org/data/2.5/forecast?q=${query}&appid=${key}&units=metric`;
   axios
     .get(url)
