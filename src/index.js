@@ -13,8 +13,8 @@ function handleSubmit(event) {
 }
 
 function fetchWeatherData(query) {
-  let key = "2eccbcd952a1aceae0d14b25abf53b4a";
-  let url = `https://api.openweathermap.org/data/2.5/weather?q=${query}&appid=${key}&units=metric`;
+  let key = "c4o70eae80t53b1a673cb5f833ce0004";
+  let url = `https://api.shecodes.io/weather/v1/current?query=${query}&key=${key}&units=metric`;
   axios
     .get(url)
     .then(updateTemperature)
@@ -26,34 +26,34 @@ function fetchWeatherData(query) {
 
 function updateTemperature(response) {
   let currentCity = document.querySelector("#current-city");
-  currentCity.innerHTML = response.data.name;
+  currentCity.innerHTML = response.data.city;
 
   let currentDateElement = document.querySelector("#current-date");
-  let timeValue = response.data.dt * 1000;
+  let timeValue = response.data.time * 1000;
   let date = new Date(timeValue);
   currentDateElement.innerHTML = formatDateTime(date);
 
   let currentDescription = document.querySelector("#current-description");
-  currentDescription.innerHTML = response.data.weather[0].description;
+  currentDescription.innerHTML = response.data.condition.description;
 
   let currentHumidity = document.querySelector("#current-humidity");
-  currentHumidity.innerHTML = `${response.data.main.humidity}%`;
+  currentHumidity.innerHTML = `${response.data.temperature.humidity}%`;
 
   let currentWindSpeed = document.querySelector("#current-wind");
   currentWindSpeed.innerHTML = `${response.data.wind.speed} km/h`;
 
   let currentIcon = document.querySelector("#current-icon");
-  currentIcon.innerHTML = `<img src="http://openweathermap.org/img/wn/${response.data.weather[0].icon}@2x.png" alt="${response.data.weather[0].description}" class="current-temperature-icon" />`;
+  currentIcon.innerHTML = `<img src="${response.data.condition.icon_url}" alt="${response.data.condition.icon}" class="current-temperature-icon" />`;
 
   let currentTemperature = document.querySelector("#current-temp");
-  currentTemperature.innerHTML = Math.round(response.data.main.temp);
+  currentTemperature.innerHTML = Math.round(response.data.temperature.current);
 
-  fetchForecast(response.data.name);
+  fetchForecast(response.data.city);
 }
 
 function fetchForecast(query) {
-  let key = "2eccbcd952a1aceae0d14b25abf53b4a";
-  let url = `https://api.openweathermap.org/data/2.5/forecast?q=${query}&appid=${key}&units=metric`;
+  let key = "c4o70eae80t53b1a673cb5f833ce0004";
+  let url = `https://api.shecodes.io/weather/v1/forecast?query=${query}&key=${key}&units=metric`;
   axios
     .get(url)
     .then(displayForecast)
@@ -64,19 +64,23 @@ function fetchForecast(query) {
 
 function displayForecast(response) {
   let forecastData = "";
-  response.data.list.forEach((item, index) => {
-    if (index % 8 === 0) { // OpenWeather forecast returns data every 3 hours, showing daily forecast every 24 hours (8 intervals)
+  response.data.daily.forEach((item, index) => {
+    if (index < 7) {
       forecastData += `
         <div class="weather-forecast-data">
           <div class="weather-forecast-day">
-            ${formatDay(item.dt)}
+            ${formatDay(item.time)}
           </div>
           <div class="wf-icon">
-            <img src="http://openweathermap.org/img/wn/${item.weather[0].icon}@2x.png" alt="${item.weather[0].description}" class="weather-forecast-icon" />
+            <img src="${item.condition.icon_url}" alt="${
+        item.condition.icon
+      }" class="weather-forecast-icon" />
           </div>
           <div class="weather-forecast-high-low">
-            <span class="wf-high">${Math.round(item.main.temp_max)}°</span>
-            <span class="wf-low">${Math.round(item.main.temp_min)}°</span>
+            <span class="wf-high">${Math.round(
+              item.temperature.maximum
+            )}°</span>
+            <span class="wf-low">${Math.round(item.temperature.minimum)}°</span>
           </div>
         </div>
       `;
